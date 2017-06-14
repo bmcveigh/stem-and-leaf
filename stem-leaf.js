@@ -14,35 +14,47 @@
         $('.container > .row .plot-input')
           .on('keyup', function(e) {
           
+          if (e.which != 13) {
+            return false;
+          }
+
           var self = this;
           var input = $(self).val();
           var numbers = input.split(' ');
           var numbersSorted = numbers.sort();
           
-          var output = '';
-          
-          var lastDigit = 0;
+          var lastStemNumber = 0;
           
           var leafNumbers = [];
+
+          var addedStemNumbers = [];
           
           $.each(numbersSorted, function(key, value) {
             var numberOfDigits = value.length;
             var splitIndex = numberOfDigits - 1;
             
-            var stemOutput = '<td>' + value.substring(0, splitIndex) + '</td>';
-            
             var currentDigit = value.charAt(splitIndex);
-            
-            if (lastDigit == 0 || currentDigit == lastDigit) {
-              leafNumbers.push(currentDigit);
+            var currentStemNumber = value.substring(0, splitIndex);
+
+            leafNumbers.push(currentDigit);
+
+            if ($.inArray(currentStemNumber, addedStemNumbers) === -1) {
+              var stemOutput = currentStemNumber;
+
+              var leafOutput = leafNumbers.join(' ');
+              if (!$('tr[data-stem-number="' + currentStemNumber + '"]').length) {
+                var output = '<tr data-stem-number="' + currentStemNumber + '"><td>' + stemOutput + '</td><td> ' + leafOutput + '</td></tr>';
+                $(self).siblings('.plot-results').children('table').find('tbody').append(output);
+              }
+
+              addedStemNumbers.push(currentStemNumber);
+              
             }
-            var leafOutput = leafNumbers.join(' ');
-            output += '<tr>' + stemOutput + '<td>' + leafOutput + '</td></tr>';
-            
-            lastDigit = currentDigit;
+            else {
+              var $leafCell = $(self).siblings('.plot-results').children('table').find('tbody > tr[data-stem-number="' + currentStemNumber + '"] > td:last');
+              $leafCell.append(' ' + currentDigit);
+            }
           });
-          
-          $(self).siblings('.plot-results').children('table').html(output);
         });
       }
 
