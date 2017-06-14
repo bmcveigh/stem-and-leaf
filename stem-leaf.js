@@ -36,25 +36,35 @@
             var currentDigit = value.charAt(splitIndex);
             var currentStemNumber = value.substring(0, splitIndex);
 
+            if (currentStemNumber != lastStemNumber) {
+              leafNumbers = [];
+            }
+
             leafNumbers.push(currentDigit);
 
-            if ($.inArray(currentStemNumber, addedStemNumbers) === -1) {
+            var $row = $('tr[data-stem-number="' + currentStemNumber + '"]');
+
+            if (!$row.length) {
               var stemOutput = currentStemNumber;
 
               var leafOutput = leafNumbers.join(' ');
-              if (!$('tr[data-stem-number="' + currentStemNumber + '"]').length) {
-                var output = '<tr data-stem-number="' + currentStemNumber + '"><td>' + stemOutput + '</td><td> ' + leafOutput + '</td></tr>';
-                $(self).siblings('.plot-results').children('table').find('tbody').append(output);
-              }
+              var output = '<tr data-stem-number="' + currentStemNumber + '"><td>' + stemOutput + '</td><td> ' + currentDigit + '</td></tr>';
+              $(self).siblings('.plot-results').children('table').find('tbody').append(output);
 
               addedStemNumbers.push(currentStemNumber);
               
             }
             else {
               var $leafCell = $(self).siblings('.plot-results').children('table').find('tbody > tr[data-stem-number="' + currentStemNumber + '"] > td:last');
-              $leafCell.append(' ' + currentDigit);
+              $leafCell.html(leafNumbers.join(' '));
             }
+
+            lastStemNumber = currentStemNumber;
           });
+
+          if (input == '') {
+            $('table > tbody').html('');
+          }
         });
       }
 
