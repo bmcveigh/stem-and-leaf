@@ -21,7 +21,7 @@
           var self = this;
           var input = $(self).val();
           var numbers = input.split(' ');
-          var numbersSorted = numbers.sort();
+          var numbersSorted = numbers.sort().reverse();
           
           var lastStemNumber = 0;
           
@@ -56,7 +56,7 @@
             }
             else {
               var $leafCell = $(self).siblings('.plot-results').children('table').find('tbody > tr[data-stem-number="' + currentStemNumber + '"] > td:last');
-              $leafCell.html(leafNumbers.join(' '));
+              $leafCell.html(leafNumbers.reverse().join(' '));
             }
 
             lastStemNumber = currentStemNumber;
