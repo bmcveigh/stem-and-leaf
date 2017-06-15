@@ -1,21 +1,42 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Stem and Leaf Plot Generator</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  
 <div class="container stem-leaf-app">
   <div class="row">
     <div class="col-md-4">
       <label>Enter numbers separated by spaces followed by hitting enter.</label>
-      <input type="text" class="form-control plot-input">
+      <input class="form-control plot-input" type="text"/>
       <div class="plot-results">
         <table class="table">
-            <thead>
-              <tr>
-                <th>Stem</th>
-                <th>Leaf</th>
-              </tr>
-            </thead>
-          <tbody>
-          </tbody>
+          <thead>
+            <tr>
+              <th>Stem</th>
+              <th>Leaf</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </div>
     </div>
   </div>
+  <footer class="row"><em class="pull-right">Developed for Beenish from Brian McVeigh</em></footer>
 </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 
+    <script src="js/index.js"></script>
+
+</body>
+</html>
